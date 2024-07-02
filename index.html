@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Text with Shadow and Background</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto Slab', serif;
+        }
+        hr {
+            margin: 20px 0px 20px 0px;
+        }
+        h2 {
+            margin: 0px;
+        }
+        .controls {
+            width: 200px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .controls label {
+            display: block;
+            /*margin-bottom: 5px;*/
+        }
+        .controls textarea {
+            width: calc(100%); /* Adjust for padding */
+            margin: 0 0 10px;
+            padding: 3px;
+            box-sizing: border-box;
+            resize: none;
+        }
+        .controls input[type="file"] {
+            width: 100%;
+            margin: 5px 0 10px;
+            padding: 0px 10px;
+            box-sizing: border-box;
+        }
+        .controls input[type="number"] {
+            width: 50px;
+        }
+        .canvas-container {
+            flex-grow: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 20px;
+            overflow-y: auto;
+        }
+        canvas {
+            border: 1px solid black;
+            max-width: 100%; /* Ensure canvas scales to fit container */
+            max-height: 100%; /* Ensure canvas scales to fit container */
+        }
+        .divTable {
+            display: table;
+            width: 100%;
+            padding: 0px 0px 5px;
+        }
+        .divTableRow {
+            display: table-row;
+            
+        }
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+        }
+        .divTableCell, .divTableHead {
+            display: table-cell;
+            padding: 5px 3px 0px 0px;
+        }
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: bold;
+        }
+        .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: bold;
+        }
+        .divTableBody {
+            display: table-row-group;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">    
+
+        <h2>Lockscreen Image Generator</h2>
+
+        <hr>
+
+        <label for="text">Text (One image per line):</label>
+        <textarea id="text" placeholder="Enter text here" rows="5" wrap = "off">You are amazing and deserve wonderful things&#10;Drink more water&#10;It's not your fault for how they treated you</textarea>
+            
+        <div class="divTable">
+            <div class="divTableBody">
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="width">Width:</label></div>
+            <div class="divTableCell"><input type="number" id="width" placeholder="Width" value="1080" size="5"></div>
+            </div>
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="height">Height:</label></div>
+            <div class="divTableCell"><input type="number" id="height" placeholder="Height" value="2316"></div>
+            </div>
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="yPosition">Y-axis Position:</label>  </div>
+            <div class="divTableCell"><input type="number" id="yPosition" placeholder="Y-axis Position (0-100)" min="0" max="100" value="25"></div>
+            </div>
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="fontSize">Font Size:</label> </div>
+            <div class="divTableCell"><input type="number" id="fontSize" placeholder="Font Size" value="80"></div>
+            </div>
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="textColor">Text Color:</label> </div>
+            <div class="divTableCell"><input type="color" id="textColor" value="#ffffff"></div>
+            </div>
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="shadowColor">Shadow Color:</label>  </div>
+            <div class="divTableCell"><input type="color" id="shadowColor" value="#808080"></div>
+            </div>
+            <div class="divTableRow">
+            <div class="divTableCell"><label for="bgColor">Background Color:</label> </div>
+            <div class="divTableCell"><input type="color" id="bgColor" value="#000000"></div>
+            </div>
+            </div>
+            </div>
+
+            <label for="bgImage">Background Image:</label>
+            <input type="file" id="bgImage" accept="image/*">
+
+            <button onclick="updateCanvas()">Generate Images</button>
+
+            <hr>
+
+            <details>
+                <summary>    
+            <b>How to use:</b>
+            </summary>
+            In the text box above, put a list of phrases that you want displayed. This could be positive affirmations, daily routine reminders, or betrayals by an ex-partner.
+            <p>
+            Select the width and height based on your device screen resolution. Use the Y-axis position and font size to position the text. Select your colors, and an optional background image. 
+            <p>
+            Generate the images and save them to your device. Use either built-in software or an app that allows you to rotate through the lockscreen photos you generated.
+            </details>
+        </div>
+
+
+        
+        <div class="canvas-container" id="canvasContainer"></div>
+        <script src="script.js"></script>
+    </body>
+    </html>
+    
