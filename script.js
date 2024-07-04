@@ -1,3 +1,5 @@
+//import ReImg from './reimg.js';
+
 function updateCanvas() {
     const text = document.getElementById('text').value;
     const width = parseInt(document.getElementById('width').value);
@@ -24,26 +26,24 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext('2d');
+    var image;
 
-    // Draw background
     if (bgImage) {
-        //drawBackgroundImage(ctx, bgImage, width, height);
-		
-		const img = new Image();
+      	const img = new Image();
 		img.onload = function() {
 			ctx.drawImage(img, 0, 0, width, height);
 			drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
+            image = ReImg.fromCanvas(canvas).toPng()
+            container.appendChild(image);
 		};
 		img.src = URL.createObjectURL(bgImage);
     } else {
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, width, height);
 		drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
+        image = ReImg.fromCanvas(canvas).toPng()
+        container.appendChild(image);
     }
-
-	//drawTextWithShadow(ctx, text, width / 2, height * (yPosition / 100), textColor, shadowColor, fontSize);
-    container.appendChild(canvas);
-	
 }
 
 function wrapText(ctx, text, maxWidth) {
@@ -89,22 +89,12 @@ function drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shad
 	const totalTextHeight = lines.length * fontSize;
     let textY = (height) * (yPosition / 100);
 	
-	console.log(width)
-	console.log(height)
-	
-	console.log(fontSize)
-	console.log(totalTextHeight)
-	
 	for (let line of lines) {
 		ctx.strokeText(line, width / 2, textY);
         ctx.fillText(line, width / 2, textY);
 		textY += fontSize;
     }
-	
-	
-    //ctx.strokeText(text, x, y);
-    //ctx.fillText(text, x, y);
+
 }
 
-// Initial canvas creation
 updateCanvas();
