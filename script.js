@@ -26,13 +26,18 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
     const ctx = canvas.getContext('2d');
     var image;
 
+    var a = document.createElement('a');
+    a.setAttribute("download", text.substring(0,32).trim() + ".jpeg");
+        
     if (bgImage) {
       	const img = new Image();
 		img.onload = function() {
 			ctx.drawImage(img, 0, 0, width, height);
 			drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
             image = ReImg.fromCanvas(canvas).toImg()
-            container.appendChild(image);
+            //image = canvas.toDataURL("image/png")
+            a.setAttribute("href", image.src);
+            a.appendChild(image); 
 		};
 		img.src = URL.createObjectURL(bgImage);
     } else {
@@ -40,8 +45,12 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
         ctx.fillRect(0, 0, width, height);
 		drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
         image = ReImg.fromCanvas(canvas).toImg()
-        container.appendChild(image);
+        //image = canvas.toDataURL("image/png")
+        a.setAttribute("href", image.src);
+        a.appendChild(image);
     }
+
+    container.appendChild(a);
 }
 
 function wrapText(ctx, text, maxWidth) {
