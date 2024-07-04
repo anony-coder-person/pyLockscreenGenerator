@@ -1,5 +1,3 @@
-//import ReImg from './reimg.js';
-
 function updateCanvas() {
     const text = document.getElementById('text').value;
     const width = parseInt(document.getElementById('width').value);
@@ -33,7 +31,7 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
 		img.onload = function() {
 			ctx.drawImage(img, 0, 0, width, height);
 			drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
-            image = ReImg.fromCanvas(canvas).toPng()
+            image = ReImg.fromCanvas(canvas).toImg()
             container.appendChild(image);
 		};
 		img.src = URL.createObjectURL(bgImage);
@@ -41,7 +39,7 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, width, height);
 		drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
-        image = ReImg.fromCanvas(canvas).toPng()
+        image = ReImg.fromCanvas(canvas).toImg()
         container.appendChild(image);
     }
 }
