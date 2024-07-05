@@ -25,9 +25,8 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
     canvas.height = height;
     const ctx = canvas.getContext('2d');
     var image;
-
     var a = document.createElement('a');
-    a.setAttribute("download", text.substring(0,32).trim() + ".jpeg");
+    a.setAttribute("download", getFileName(text));
         
     if (bgImage) {
       	const img = new Image();
@@ -44,13 +43,18 @@ function createImageWithText(text, width, height, bgColor, textColor, shadowColo
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, width, height);
 		drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shadowColor, fontSize);
-        image = ReImg.fromCanvas(canvas).toImg()
+        image = ReImg.fromCanvas(canvas).toImg();
         //image = canvas.toDataURL("image/png")
+        image.alt = text;
         a.setAttribute("href", image.src);
         a.appendChild(image);
     }
 
     container.appendChild(a);
+}
+
+function getFileName(text) {
+    return text.substring(0,32).trim() + ".jpg"
 }
 
 function wrapText(ctx, text, maxWidth) {
@@ -103,5 +107,30 @@ function drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shad
     }
 
 }
+
+const downloadImages = async () => {
+    // Create and append a link
+    let link = document.createElement("a");
+    document.documentElement.append(link);
+  
+    const imgArr = document.querySelectorAll("img");
+    for (let i = 0; i < imgArr.length; i++) {
+      await fetch(imgArr[i].src)
+        .then(res => res.blob()) // Gets the response and returns it as a blob
+        .then(blob => {
+  
+          let objectURL = URL.createObjectURL(blob);
+          
+          text = imgArr[i].alt.substring(0,32).trim()
+          // Set the download name and href
+          link.setAttribute("download", `${getFileName(text)}`);
+          link.href = objectURL;
+  
+          // Auto click the link
+          link.click();
+      })
+    }
+  };
+
 
 updateCanvas();

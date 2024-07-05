@@ -8,9 +8,10 @@
     <style>
         body {
             display: flex;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: 'Roboto Slab', serif;
+            font-size: 14px;
         }
         hr {
             margin: 20px 0px 20px 0px;
@@ -20,6 +21,7 @@
         }
         .controls {
             width: 200px;
+            min-height: 100vh;
             padding: 20px;
             background-color: #f0f0f0;
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -55,8 +57,8 @@
             overflow-y: auto;
             
         }
-        a {
-            height: 50%;
+        .background {
+            max-height: 50vh;
             display: block;
         }
         canvas, img {
@@ -64,6 +66,7 @@
             max-width: 100%;
             max-height: 100%;
             display: block;
+            pointer-events: none;
         }
         .divTable {
             display: table;
@@ -144,26 +147,30 @@
             <input type="file" id="bgImage" accept="image/*">
 
             <div class="divTableRow">
-                <div class="divTableCell"><button onclick="updateCanvas()">Generate</button></div>
-                <!-- div class="divTableCell"><button onclick="downloadImages()">Download</button></div -->
+                <div class="divTableCell"><button onclick="updateCanvas()">Generate Images</button></div>
+                <div class="divTableCell"><button onclick="downloadImages()">Download All</button></div>
             </div>
 
             <hr>
 
-            <details>
+            <details open>
                 <summary>    
             <b>How to use:</b>
             </summary>
-            In the text box above, put a list of phrases that you want displayed. This could be positive affirmations, daily routine reminders, or betrayals by an ex-partner.
-            <p>
-            Select the width and height based on your device screen resolution. Use the Y-axis position and font size to position the text. Select your colors, and an optional background image. 
-            <p>
-            Generate the images and click on them to save to your device. Use either built-in software or an app that allows you to rotate through the lockscreen photos you generated.
+            <small>
+            &#8195;In the text box above, input a list of phrases that you want displayed. This could be positive affirmations, daily routine reminders, or betrayals by an ex&#8209;partner.
+            <br><br>
+            &#8195;Select the width and height based on your device screen resolution. Use the Y-axis position and font size to position the text. Select your colors, and an optional background image. 
+            <br><br>
+            &#8195;Generate the images and download them to your device. Rotate through the generated images using either built-in software (e.g., <a href="https://support.apple.com/en-ca/102638">Apple</a> or <a href="https://www.samsung.com/us/support/answer/ANS10001593/">Samsung</a>) or an app (e.g., <a href = "https://play.google.com/store/search?q=lockscreen%20background%20rotate&c=apps&hl=en">Android</a>).
+        </small>
             </details>
         </div>
-        
+        <div>
+            <div style="width: 100%; text-align: center;"> (Click an image to download individually)</div>
         <div class="canvas-container" id="canvasContainer"></div>
-        
+    </div>
+
         <script src="reimg.js"></script>        
         <script src="script.js"></script>     
     </body>
