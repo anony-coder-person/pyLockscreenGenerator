@@ -105,7 +105,6 @@ function drawTextWithShadow(ctx, text, width, height, yPosition, textColor, shad
         ctx.fillText(line, width / 2, textY);
 		textY += fontSize;
     }
-
 }
 
 const downloadImages = async () => {
@@ -131,6 +130,5 @@ const downloadImages = async () => {
       })
     }
   };
-
 
 updateCanvas();
